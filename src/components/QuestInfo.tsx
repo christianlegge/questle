@@ -5,14 +5,14 @@ import _quests from "../quests.json";
 const quests: Record<
 	string,
 	{
-		requirements: string;
-		desc: string;
+		requirements: string[];
+		desc: string[];
 		difficulty: string;
-		kills: string;
+		kills: string[];
 		name: string;
 		start: string;
 		length: string;
-		items: string;
+		items: string[];
 		year: string;
 		series: string;
 	}
