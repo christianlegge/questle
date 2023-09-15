@@ -15,11 +15,12 @@ function App() {
 	const quests = ["Demon Slayer", "Fight Arena", "Throne of Miscellania"];
 
 	return (
-		<>
+		<div>
+			<QuestInput quests={Object.keys(allQuests)} guess={() => {}} />
 			{quests.map((quest) => (
-				<QuestInfo quest={quest} key={quest} />
+				<QuestInfo quest={quest} key={quest} guessed={false} />
 			))}
-		</>
+		</div>
 	);
 
 	return (

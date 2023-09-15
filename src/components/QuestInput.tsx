@@ -8,6 +8,7 @@ const QuestInput = ({
 	guess: (quest: string) => void;
 }) => {
 	const [quest, setQuest] = useState("");
+	const [showList, setShowList] = useState(false);
 
 	const filteredQuests = quests.filter(
 		(x) =>
@@ -17,21 +18,25 @@ const QuestInput = ({
 	);
 
 	return (
-		<>
+		<div className="relative flex flex-col">
 			<input
 				type="text"
 				name="quest"
 				id="quest"
 				placeholder="Enter quest here..."
 				onChange={(e) => setQuest(e.target.value)}
-				className="relative"
+				onFocus={() => setShowList(true)}
+				onBlur={() => setShowList(false)}
+				className="relative p-2 rounded border-black border"
 				onSubmit={() => guess(quest)}
 			/>
-			<div className="flex flex-col absolute">
-				{quest.length >= 3 &&
-					filteredQuests.map((x) => <span>{x}</span>)}
-			</div>
-		</>
+			{showList && (
+				<div className="max-h-32 overflow-auto flex flex-col absolute top-full bg-white border-black border p-2">
+					{quest.length >= 3 &&
+						filteredQuests.map((x) => <span>{x}</span>)}
+				</div>
+			)}
+		</div>
 	);
 };
 
