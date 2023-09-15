@@ -4,7 +4,7 @@ const MultiClue = ({ clues }: { clues: string[] }) => {
 	const [revealed, setRevealed] = useState(0);
 
 	return (
-		<>
+		<div className="flex flex-col">
 			{clues.map((val, idx) => {
 				if (idx < revealed) {
 					return <span key={val}>{val}</span>;
@@ -18,7 +18,7 @@ const MultiClue = ({ clues }: { clues: string[] }) => {
 					Reveal next
 				</button>
 			)}
-		</>
+		</div>
 	);
 };
 

@@ -14,21 +14,42 @@ const shortProps = [
 const longProps = ["requirements", "desc", "kills", "items"] as const;
 
 type QuestProps = {
-	[k in (typeof shortProps)[number]]: string;
-} & {
-	[k in (typeof longProps)[number]]: string[];
+	name: string;
+	difficulty: string;
+	start: string;
+	length: string;
+	year: string;
+	series: string;
+	requirements: string[];
+	desc: string[];
+	kills: string[];
+	items: string[];
 };
 
 const quests: Record<string, QuestProps> = _quests;
 
-const QuestInfo = ({ quest }: { quest: string }) => {
+const QuestInfo = ({ quest, guessed }: { quest: string; guessed: boolean }) => {
 	const questData = quests[quest];
 	return (
 		<div className="border-2 p-8">
-			<div className="grid grid-cols-6">
-				{shortProps.map((prop) => (
-					<span>{questData[prop]}</span>
-				))}
+			<div className="grid grid-cols-3">
+				<span className="font-bold text-4xl">
+					{guessed ? quest : "??????????"}
+				</span>
+				<div className="col-span-2">
+					<span className="font-semibold">Start: </span>
+					<Clue text={questData["start"]} />
+				</div>
+			</div>
+			<div className="grid grid-cols-4">
+				{(["difficulty", "length", "year", "series"] as const).map(
+					(prop) => (
+						<div>
+							<h2>{prop}</h2>
+							<Clue text={questData[prop]} />
+						</div>
+					)
+				)}
 			</div>
 			<div className="grid grid-cols-4">
 				{longProps.map((prop) => (
@@ -47,10 +68,6 @@ const QuestInfo = ({ quest }: { quest: string }) => {
 			</ul> */}
 		</div>
 	);
-};
-
-const stripWikiFormatting = (str: string): string => {
-	return str.replace(/\[\[(?:[^\[\]]+\|)?([^\[\]]+)\]\]/g, "$1");
 };
 
 export default QuestInfo;
