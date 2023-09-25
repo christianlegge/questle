@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 
-const MultiClue = ({ clues }: { clues: string[] }) => {
+const MultiClue = ({
+	clues,
+	cost,
+	deductPoints,
+}: {
+	clues: string[];
+	cost: number;
+	deductPoints: (cost: number) => void;
+}) => {
 	const [revealed, setRevealed] = useState(0);
 
 	return (
@@ -12,10 +20,13 @@ const MultiClue = ({ clues }: { clues: string[] }) => {
 			})}
 			{revealed < clues.length && (
 				<button
-					onClick={() => setRevealed((curr) => curr + 1)}
+					onClick={() => {
+						setRevealed((curr) => curr + 1);
+						deductPoints(cost);
+					}}
 					className="border-1 rounded bg-gray-300"
 				>
-					Reveal next
+					Reveal next (-{cost})
 				</button>
 			)}
 		</div>
